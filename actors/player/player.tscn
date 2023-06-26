@@ -1,35 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvs1qqk5d4kd3"]
+[gd_scene load_steps=3 format=3 uid="uid://gnx48inkpkbi"]
 
-[ext_resource type="PackedScene" uid="uid://bhxf8r0p54np" path="res://actors/actor/actor.tscn" id="1_3prsc"]
-
-[sub_resource type="GDScript" id="GDScript_p34yc"]
-script/source = "extends Actor
-class_name Player
-
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
-func _process(delta):
-	direction = relative_input()
-	
-func _input(event):
-	if event is InputEventMouseMotion:
-		head_rot_x -= event.relative.y
-		head_rot_y -= event.relative.x
-
-func relative_input():
-	var move = Vector3()
-	
-	move.z -= int(Input.is_action_pressed(\"move_forward\"))
-	move.z += int(Input.is_action_pressed(\"move_backward\"))
-	move.x -= int(Input.is_action_pressed(\"move_right\"))
-	move.x += int(Input.is_action_pressed(\"move_left\"))
-	
-	return move.normalized()
-"
+[ext_resource type="PackedScene" uid="uid://dwknc2v5rfho8" path="res://actors/actor/actor.tscn" id="1_3prsc"]
+[ext_resource type="Script" path="res://actors/player/player.gd" id="2_61j3a"]
 
 [node name="player" instance=ExtResource("1_3prsc")]
-script = SubResource("GDScript_p34yc")
-
-[node name="Camera3D" type="Camera3D" parent="head" index="0"]
-current = true
+script = ExtResource("2_61j3a")
+mouse_sensetive = 0.01
