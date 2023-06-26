@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhxf8r0p54np"]
+
+[ext_resource type="Script" path="res://actors/actor/actor.gd" id="1_mdw0e"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cx65q"]
+radius = 0.4
+
+[node name="actor" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+mass = 80.0
+contact_monitor = true
+can_sleep = false
+lock_rotation = true
+freeze_mode = 1
+script = ExtResource("1_mdw0e")
+
+[node name="shape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_cx65q")
+
+[node name="head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
