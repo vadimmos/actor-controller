@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cn8i761pvw7s7"]
-
-[ext_resource type="Script" path="res://extends/InterpolatedCamera3D.gd" id="1_f3k0u"]
-
-[node name="InterpolatedCamera3D" type="Camera3D"]
-script = ExtResource("1_f3k0u")
