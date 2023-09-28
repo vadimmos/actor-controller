@@ -1,30 +1,31 @@
-extends CharacterBody3D
+extends RigidBody3D
 class_name Actor
 
-@export var ground_acceleration: float = 5
-#@export var max_speed: float = 5
-#@export var air_multiplyer: float = 0.5
-@export var jump_velocity: float = 3
+@export var move_acceleration:float = 30
+@export var move_max_speed: float = 100
+@export var rotate_speed:float = 0.1
 
-@onready var neck: Node3D = $neck 
+@onready var head: Node3D = $head
+
+var head_rot_x = 0
+var head_rot_y = 0
 
 var direction = Vector3()
 
-var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+func move(move_vector:Vector2):
+	pass
 
-func _physics_process(delta):
-	if is_on_floor():
-		velocity.x = direction.x * ground_acceleration
-		velocity.z = direction.z * ground_acceleration
-	else:
-		velocity.y += -gravity * delta
-		
-#	velocity.x = clamp(velocity.x, 0, max_speed)
-#	velocity.z = clamp(velocity.z, 0, max_speed)
-	move_and_slide()
-	
-	
+func _apply_movement(delta:float):
+	linear_velocity += direction * move_acceleration * delta
+	print(linear_velocity)
 
-func jump():
-	if is_on_floor():
-		velocity.y = jump_velocity
+func _apply_rotation(delta:float):
+	head.rotation.x = head_rot_x * rotate_speed * delta
+	rotation.y = head_rot_y * rotate_speed * delta
+
+func _physics_process(delta:float):
+	_apply_rotation(delta)
+	_apply_movement(delta)
+
+func _integrate_forces(state:PhysicsDirectBodyState3D):
+	rotation_degrees = Vector3(0,0,0)
